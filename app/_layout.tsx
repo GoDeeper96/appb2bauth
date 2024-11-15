@@ -1,39 +1,62 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Stack } from 'expo-router';
+import { useEffect } from 'react';
+import { View,Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import 'react-native-reanimated';
+import {LinearGradient } from 'expo-linear-gradient'
+import Card from '@/components/Card';
+import ButtonLogin from '@/components/ButtonLogin';
+import InputLoggin from '@/components/InputLoggin';
+import ImageLogin from '@/components/ImageLogin';
+import TitleLogin from '@/components/TitleLogin';
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+   
+     <KeyboardAvoidingView 
+     behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+     style={styles.gradientView}
+   
+     >
+     
+        <Card>
+         <ImageLogin/> 
+         <TitleLogin/>
+        <View style={styles.viewLogin}>
+          <InputLoggin  placeholder='Ingresa tu usuario'
+        keyboardType='default'
+        Titulo='Usuario'/>
+        <InputLoggin 
+        placeholder='*********'
+        keyboardType='default'
+        Titulo='Contraseña'
+        />
+          <ButtonLogin/>
+          </View>
+        </Card>
+       
+     </KeyboardAvoidingView>
+   
+
   );
 }
+
+const styles = StyleSheet.create({
+  gradientView : {
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+   
+    backgroundColor:'#f1515e'
+  },
+  viewLogin:{
+    marginTop:10,
+    width:200
+},
+}) 
