@@ -1,23 +1,26 @@
 import React from 'react'
-import { Alert, Button, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import InputLoggin from './InputLoggin'
+import { Alert, Button, Pressable, StyleProp, StyleSheet, Text, TouchableOpacity, TouchableOpacityProps, View, ViewStyle } from 'react-native'
+interface ButtonProps {
+    title?: string;
+    style?: StyleProp<ViewStyle>; // Permitir estilo adicional
 
-
-export default function ButtonLogin() {
+}
+export default function ButtonGenerator({title,style}:ButtonProps) {
     const getData = async()=>{
         
     }
   return (
-   <TouchableOpacity style={styles.button} onPress={getData}>
+    <TouchableOpacity style={[styles.button,style]} onPress={getData}>
    
-        <Text style={styles.text}>
-            Iniciar Sesion
-        </Text>
-      
+    <Text style={styles.text}>
+        {title}
+    </Text>
   
-    </TouchableOpacity>
+
+</TouchableOpacity>
   )
 }
+
 const styles = StyleSheet.create({
    
     button: {
